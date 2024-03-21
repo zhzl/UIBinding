@@ -86,24 +86,6 @@ namespace UIBinding
         ButtonClickCommand,
 
         /// <summary>
-        /// 设置列表数量
-        /// </summary>
-        [PRBind(typeof(ListView), typeof(int))]
-        ListViewCount,
-
-        /// <summary>
-        /// 刷新指定列表cell
-        /// </summary>
-        [PRBind(typeof(ListView), typeof(int))]
-        ListCellRefresh,
-
-        /// <summary>
-        /// 列表刷新回调
-        /// </summary>
-        [PRBind(typeof(ListView), typeof(SimpleCommand))]
-        ListViewUpdateCommand,
-
-        /// <summary>
         /// 列表数据源
         /// </summary>
         [PRBind(typeof(ListView), typeof(ObservableList<>))]
