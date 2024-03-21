@@ -223,6 +223,12 @@ namespace UIBinding
                     if (!string.IsNullOrEmpty(uiProperty.stringValue))
                     {
                         oldUiProperty = bindingPR.ToValue(uiProperty.stringValue);
+                        if (oldUiProperty == -1)
+                        {
+                            UnityEngine.Debug.LogError($"vmPropertyDesc 未找到属性 {uiProperty.stringValue}, 已自动移除");
+                            uiProperty.stringValue = BindingPR.None;
+                            oldUiProperty = 0;
+                        }
                     }
 
                     var popupType = BindingUtils.GetPopupType(vmPropertyType);

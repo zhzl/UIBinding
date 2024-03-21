@@ -126,5 +126,11 @@ namespace UIBinding
         /// </summary>
         [PRBind(typeof(Toggle), typeof(bool))]
         ToggleValue,
+
+        /// <summary>
+        /// 加载预制
+        /// </summary>
+        [PRBind(typeof(Transform), typeof(LoadPrefabCommand))]
+        LoadPrefabCommand,
     }
 }

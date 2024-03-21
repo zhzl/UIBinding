@@ -58,8 +58,11 @@ namespace UIBinding
 
         public int ToValue(string display)
         {
-            enumDic.TryGetValue(display, out var value);
-            return value;
+            if (enumDic.TryGetValue(display, out var value))
+            {
+                return value;
+            }
+            return -1;
         }
 
         private void ParsePRFields(FieldInfo[] prFields)
