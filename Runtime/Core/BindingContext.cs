@@ -14,20 +14,20 @@ namespace UIBinding
     }
 
     /// <summary>
-    /// 绑定上下文
+    /// 绑定上下文，一个ViewModel对应一个绑定上下文
     /// </summary>
     public class BindingContext
     {
         public ViewModelBase ViewModel => viewModel;
 
-        private readonly IBindingView bindingView;
+        private readonly BindingView bindingView;
         private readonly BindingConfig bindingConfig;
         private readonly object[] bindingDatas;
 
         private ViewModelBase viewModel;
         private BindingContext parentContext;
 
-        public BindingContext(IBindingView bindingView, BindingConfig bindingConfig, ViewModelBase viewModel)
+        public BindingContext(BindingView bindingView, BindingConfig bindingConfig, ViewModelBase viewModel)
         {
             this.viewModel = viewModel;
             this.bindingConfig = bindingConfig;
