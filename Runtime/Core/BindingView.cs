@@ -5,24 +5,27 @@ using UnityEngine;
 namespace UIBinding
 {
     /// <summary>
-    /// 绑定视图基类
+    /// 绑定视图
     /// </summary>
-    public abstract class BindingViewBase : IBindingView
+    public class BindingView
     {
         private Transform transform;
+        private IBindingProvider provider;
         private BindingContext viewContext;
         private Dictionary<Transform, BindingContext> transformContextMap;
 
-        protected void InitDatabinding(Transform transform)
+        public void InitDatabinding(Transform transform, IBindingProvider provider)
         {
             this.transform = transform;
+            this.provider = provider;
             transformContextMap = new Dictionary<Transform, BindingContext>();
             viewContext = BindViewModel(transform, null);
         }
 
-        protected abstract ViewModelBase CreateViewModel(string viewModelName);
-
-        public abstract void LoadAssetAsync<T>(string path, Action<T> onComplete) where T : UnityEngine.Object;
+        public void LoadAssetAsync<T>(string path, Action<T> onComplete) where T : UnityEngine.Object
+        {
+            provider.LoadAssetAsync<T>(path, onComplete);
+        }
 
         public T GetViewModel<T>() where T : ViewModelBase
         {
@@ -68,6 +71,11 @@ namespace UIBinding
             bindingContext = new BindingContext(this, bindingConfig, viewModel);
             transformContextMap[transform] = bindingContext;
             return bindingContext;
+        }
+
+        private ViewModelBase CreateViewModel(string viewModelName)
+        {
+            return provider.CreateViewModel(viewModelName);
         }
     }
 }
