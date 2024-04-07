@@ -25,7 +25,7 @@ namespace UIBinding
                 if (image == null)
                     return;
 
-                if (sprite != null && sprite.name.Equals(spriteName, System.StringComparison.Ordinal))
+                if (sprite != null && sprite.name.Equals(Path.GetFileNameWithoutExtension(spriteName), System.StringComparison.Ordinal))
                 {
                     image.sprite = sprite;
                 }
