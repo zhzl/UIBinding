@@ -7,7 +7,6 @@ namespace UIBinding
     public class SyncImage : ISyncProperty
     {
         private Image image;
-        private Color oColor;
         private string spriteName;
 
         public void SyncProperty(Component uiComponent, object vmPropertyValue, BindingContext bindingContext)
@@ -15,10 +14,7 @@ namespace UIBinding
             var spritePath = vmPropertyValue.ToString();
 
             image = uiComponent as Image;
-            oColor = image.color;
             spriteName = Path.GetFileName(spritePath);
-
-            image.color = Color.clear;
 
             bindingContext.LoadAssetAsync<Sprite>(spritePath, sprite =>
             {
@@ -29,7 +25,6 @@ namespace UIBinding
                 {
                     image.sprite = sprite;
                 }
-                image.color = oColor;
             });
         }
     }
