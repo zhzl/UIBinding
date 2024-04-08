@@ -30,7 +30,7 @@ namespace UIBinding
         {
             var bindingData = bindingContext.GetBindingData(EBindingData.ListViewCommandArgs);
             var listViewArgs = bindingData as ListViewCommandArgs;
-            clickArgs.transform = new Transform(rectTransform);
+            clickArgs.transform = new UITransform(rectTransform);
             clickArgs.listViewArgs = listViewArgs;
             command.Execute(clickArgs);
         }

@@ -2,7 +2,7 @@
 
 namespace UIBinding
 {
-    public struct Transform
+    public struct UITransform
     {
         public Vector3 position;
         public Vector3 rotation;
@@ -12,7 +12,7 @@ namespace UIBinding
         public Vector2 anchorMin;
         public Vector2 anchorMax;
 
-        public Transform(RectTransform rectTransform)
+        public UITransform(RectTransform rectTransform)
         {
             position = rectTransform.position;
             rotation = rectTransform.eulerAngles;

@@ -7,7 +7,7 @@ namespace UIBinding
         /// <summary>
         /// 按钮 Transform
         /// </summary>
-        public Transform transform;
+        public UITransform transform;
 
         /// <summary>
         /// 列表参数，只有按钮属于某个列表才有值
