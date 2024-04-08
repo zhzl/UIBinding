@@ -2,6 +2,9 @@
 
 namespace UIBinding
 {
+    /// <summary>
+    /// 使用本框架时，不希望将Unity的Transform直接暴露给用户，所以这里做个封装
+    /// </summary>
     public struct UITransform
     {
         public Vector3 position;
