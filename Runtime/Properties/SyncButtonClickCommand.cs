@@ -8,11 +8,15 @@ namespace UIBinding
         private ICommand command;
         private BindingContext bindingContext;
         private bool listened;
+        private RectTransform rectTransform;
+        private ButtonClickCommandArgs clickArgs;
 
         public void SyncProperty(Component uiComponent, object vmPropertyValue, BindingContext bindingContext)
         {
             this.bindingContext = bindingContext;
             command = vmPropertyValue as SimpleCommand;
+            rectTransform = uiComponent.GetComponent<RectTransform>();
+            clickArgs = new ButtonClickCommandArgs();
 
             if (!listened)
             {
@@ -25,8 +29,10 @@ namespace UIBinding
         private void OnButtonClick()
         {
             var bindingData = bindingContext.GetBindingData(EBindingData.ListViewCommandArgs);
-            var commandArgs = bindingData as ICommandArgs;
-            command.Execute(commandArgs);
+            var listViewArgs = bindingData as ListViewCommandArgs;
+            clickArgs.transform = new Transform(rectTransform);
+            clickArgs.listViewArgs = listViewArgs;
+            command.Execute(clickArgs);
         }
     }
 }
