@@ -81,6 +81,12 @@ namespace UIBinding
             var vmIndex = 0;
             var rebuild = false;
             var klassProperties = klass.GetProperties();
+            if (klassProperties.Length == 0)
+            {
+                itemList.arraySize = 0;
+                return;
+            }
+
             for (int i = 0; i < klassProperties.Length; i++)
             {
                 var p = klassProperties[i];
