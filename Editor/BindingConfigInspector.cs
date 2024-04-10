@@ -221,6 +221,14 @@ namespace UIBinding
                     var uiProperty = elementUiProperties.GetArrayElementAtIndex(j);
                     var uiComponent = elementUiComponents.GetArrayElementAtIndex(j);
 
+                    var oldColor = GUI.backgroundColor;
+                    var newColor = oldColor;
+                    if (uiObject.objectReferenceValue == null || BindingPR.None.Equals(uiProperty.stringValue))
+                    {
+                        newColor = Color.red;
+                    }
+                    GUI.backgroundColor = newColor;
+
                     var bindingObject = (GameObject)EditorGUILayout.ObjectField(uiObject.objectReferenceValue, typeof(GameObject), true);
 
                     var oldUiProperty = BindingPR.NoneValue;
@@ -231,7 +239,7 @@ namespace UIBinding
                         oldUiProperty = bindingPR.ToValue(uiProperty.stringValue);
                         if (oldUiProperty == -1)
                         {
-                            UnityEngine.Debug.LogError($"vmPropertyDesc 未找到属性 {uiProperty.stringValue}, 已自动移除");
+                            UnityEngine.Debug.LogError($"{vmPropertyDesc} 未找到属性 {uiProperty.stringValue}, 已自动移除");
                             uiProperty.stringValue = BindingPR.None;
                             oldUiProperty = 0;
                         }
@@ -250,6 +258,8 @@ namespace UIBinding
                     {
                         newUiProperty = EditorGUILayout.IntPopup(BindingPR.NoneValue, new string[] { BindingPR.None }, new int[] { BindingPR.NoneValue });
                     }
+
+                    GUI.backgroundColor = oldColor;
 
                     if (bindingObject == null)
                     {
@@ -273,6 +283,11 @@ namespace UIBinding
                             uiComponent.objectReferenceValue = null;
                             uiProperty.stringValue = popup.ToDisplay(newUiProperty);
                             UpdateBindingProperty(uiProperty, uiComponent, newUiProperty, bindingObject);
+                        }
+                        else
+                        {
+                            // 处理绑定对象与绑定属性没变，但是pr上配置的组件变了的情况
+                            CheckPRComponentChanged(uiProperty, uiComponent, newUiProperty, bindingObject);
                         }
                     }
 
@@ -326,6 +341,27 @@ namespace UIBinding
                     EditorUtility.DisplayDialog("错误", $"{bindingObject.name}不存在组件{componentType.Name}", "关闭");
                     uiComponent.objectReferenceValue = null;
                     uiProperty.stringValue = BindingPR.None;
+                }
+            }
+        }
+
+        private void CheckPRComponentChanged(SerializedProperty uiProperty, SerializedProperty uiComponent, int newUiProperty, GameObject bindingObject)
+        {
+            if (newUiProperty != BindingPR.NoneValue)
+            {
+                bindingPR.TryGetComponent(newUiProperty, out var componentType);
+                var component = bindingObject.GetComponent(componentType);
+                if (component == null)
+                {
+                    uiComponent.objectReferenceValue = null;
+                    uiProperty.stringValue = BindingPR.None;
+                    return;
+                }
+
+                var componentObj = EditorUtility.InstanceIDToObject(component.GetInstanceID());
+                if (uiComponent.objectReferenceValue != componentObj)
+                {
+                    uiComponent.objectReferenceValue = componentObj;
                 }
             }
         }
