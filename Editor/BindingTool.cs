@@ -43,7 +43,7 @@ namespace UIBinding
         /// </summary>
         [MenuItem("GameObject/UIBinding/Find bind missing nodes")]
         [MenuItem("Assets/UIBinding/Find bind missing nodes")]
-        static void FindUIParticle(MenuCommand menuCommand)
+        static void FindMissingNodes(MenuCommand menuCommand)
         {
             var prefab = menuCommand.context as GameObject;
             if (prefab != null)
@@ -63,6 +63,32 @@ namespace UIBinding
             }
 
             UnityEngine.Debug.Log($"============ Find bind missing nodes complete! ===========");
+        }
+
+        /// <summary>
+        /// 查找具有绑定配置的节点
+        /// </summary>
+        [MenuItem("GameObject/UIBinding/Find binding config nodes")]
+        static void FindBindingConfigNodes(MenuCommand menuCommand)
+        {
+            var prefab = menuCommand.context as GameObject;
+            if (prefab != null)
+            {
+                BindingPR bindingPR = new BindingPR();
+                var bindingConfigs = prefab.GetComponentsInChildren<BindingConfig>(true);
+                if (bindingConfigs == null || bindingConfigs.Length == 0)
+                {
+                    UnityEngine.Debug.Log($"============ Find binding config nodes complete! ===========");
+                    return;
+                }
+
+                foreach (var bindingConfig in bindingConfigs)
+                {
+                    UnityEngine.Debug.Log($"[Binding config]: binding config node: {bindingConfig.gameObject.name}");
+                }
+            }
+
+            UnityEngine.Debug.Log($"============ Find binding config nodes complete! ===========");
         }
 
         /// <summary>
