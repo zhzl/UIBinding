@@ -50,6 +50,12 @@ namespace UIBinding
         Image,
 
         /// <summary>
+        /// 设置图片，并保持 Native Size
+        /// </summary>
+        [PRBind(typeof(Image), typeof(string))]
+        NativeSizeImage,
+
+        /// <summary>
         /// 图片填充率
         /// </summary>
         [PRBind(typeof(Image), typeof(float))]
@@ -78,6 +84,12 @@ namespace UIBinding
         /// </summary>
         [PRBind(typeof(InputField), typeof(string))]
         Input,
+
+        /// <summary>
+        /// Button 交互
+        /// </summary>
+        [PRBind(typeof(Button), typeof(bool))]
+        ButtonInteractable,
 
         /// <summary>
         /// 按钮点击命令
