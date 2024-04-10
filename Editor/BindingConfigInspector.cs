@@ -223,7 +223,7 @@ namespace UIBinding
 
                     var oldColor = GUI.backgroundColor;
                     var newColor = oldColor;
-                    if (uiObject.objectReferenceValue == null || BindingPR.None.Equals(uiProperty.stringValue))
+                    if (uiObject.objectReferenceValue == null || BindingPR.None.Equals(uiProperty.stringValue, System.StringComparison.Ordinal))
                     {
                         newColor = Color.red;
                     }
