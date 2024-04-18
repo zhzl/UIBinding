@@ -100,12 +100,54 @@ namespace UIBinding
             var vmKlassGuidField = typeof(BindingConfig).GetField("vmKlassGuid", BindingFlags.NonPublic | BindingFlags.Instance);
             var vmKlassGuid = vmKlassGuidField.GetValue(bindingConfig).ToString();
 
-            if (string.IsNullOrEmpty(vmKlassGuid) || !BindingUtils.TryGetMonoScript(vmKlassGuid, out var _))
+            if (string.IsNullOrEmpty(vmKlassGuid) || !BindingUtils.TryGetMonoScript(vmKlassGuid, out var script))
             {
                 UnityEngine.Debug.LogError($"[Bind missing]: {path}, missing node: {bindingConfig.gameObject.name}");
                 return false;
             }
 
+            // 没有找到类
+            var klass = BindingUtils.GetClass(script);
+            if (klass == null)
+            {
+                UnityEngine.Debug.LogError($"[Bind missing]: {path}, missing node: {bindingConfig.gameObject.name}");
+                return false;
+            }
+
+            // 检测属性是否一一匹配
+            var vmIndex = 0;
+            var properties = klass.GetProperties();
+            for (int i = 0; i < properties.Length; i++)
+            {
+                var p = properties[i];
+                if (!p.HasAttribute<NotifyAttribute>())
+                    continue;
+
+                // 属性数量不匹配
+                if (vmIndex >= bindingConfig.itemList.Count)
+                {
+                    UnityEngine.Debug.LogError($"[Bind missing]: {path}, missing node: {bindingConfig.gameObject.name}");
+                    return false;
+                }
+
+                // 属性名称不匹配
+                if (!p.Name.Equals(bindingConfig.itemList[vmIndex].vmPropertyName, System.StringComparison.Ordinal))
+                {
+                    UnityEngine.Debug.LogError($"[Bind missing]: {path}, missing node: {bindingConfig.gameObject.name}");
+                    return false;
+                }
+
+                vmIndex++;
+            }
+
+            // 属性数量不匹配
+            if (vmIndex != bindingConfig.itemList.Count)
+            {
+                UnityEngine.Debug.LogError($"[Bind missing]: {path}, missing node: {bindingConfig.gameObject.name}");
+                return false;
+            }
+
+            // 检测引用是否丢失
             foreach (var bindingItem in bindingConfig.itemList)
             {
                 for (int i = 0; i < bindingItem.uiObjects.Count; i++)
