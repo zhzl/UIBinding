@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UIBinding;
 
-namespace UIBinding
+namespace UIBindingEditor
 {
     /// <summary>
     /// 内置PR与自定义PR集合

@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace UIBinding
+namespace UIBindingEditor
 {
     public enum SourcePath
     {

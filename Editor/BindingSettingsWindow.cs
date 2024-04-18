@@ -1,23 +1,26 @@
 using UIBinding;
 using UnityEditor;
 
-public class BindingSettingsWindow : EditorWindow
+namespace UIBindingEditor
 {
-    private Editor editor;
-
-    [MenuItem("Tools/UIBinding/Settings")]
-    public static void OpenSettingsWindow()
+    public class BindingSettingsWindow : EditorWindow
     {
-        var window = EditorWindow.GetWindow<BindingSettingsWindow>("Binding Settings");
-        var settings = BindingSettings.GetOrCreateSettings();
-        window.editor = Editor.CreateEditor(settings);
-    }
+        private Editor editor;
 
-    private void OnGUI()
-    {
-        if (editor != null)
+        [MenuItem("Tools/UIBinding/Settings")]
+        public static void OpenSettingsWindow()
         {
-            editor.OnInspectorGUI();
+            var window = EditorWindow.GetWindow<BindingSettingsWindow>("Binding Settings");
+            var settings = BindingSettings.GetOrCreateSettings();
+            window.editor = Editor.CreateEditor(settings);
+        }
+
+        private void OnGUI()
+        {
+            if (editor != null)
+            {
+                editor.OnInspectorGUI();
+            }
         }
     }
 }
