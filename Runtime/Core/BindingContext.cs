@@ -133,6 +133,12 @@ namespace UIBinding
 
         private void OnPropertyChanged(object sender, int propertyIndex, string propertyName, object propertyValue)
         {
+            if (propertyIndex >= bindingConfig.itemList.Count)
+            {
+                LogUtils.Error($"未找到属性 {propertyName} 的绑定信息，请检查预制上的 BindingConfig");
+                return;
+            }
+
             var bindingItem = bindingConfig.itemList[propertyIndex];
             if (!bindingItem.vmPropertyName.Equals(propertyName, System.StringComparison.Ordinal))
             {

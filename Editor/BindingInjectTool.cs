@@ -1,4 +1,6 @@
-﻿using Mono.Cecil.Cil;
+﻿#if !DISABLE_UIBINDING_INJECT
+
+using Mono.Cecil.Cil;
 using Mono.Cecil;
 using UnityEditor;
 using UnityEngine;
@@ -237,3 +239,5 @@ namespace UIBinding
         }
     }
 }
+
+#endif
