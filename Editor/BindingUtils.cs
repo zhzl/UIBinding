@@ -2,9 +2,10 @@
 using System;
 using System.CodeDom;
 using System.Text.RegularExpressions;
+using UIBinding;
 using UnityEditor;
 
-namespace UIBinding
+namespace UIBindingEditor
 {
     /// <summary>
     /// 绑定工具类

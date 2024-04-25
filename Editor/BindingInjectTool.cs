@@ -7,8 +7,9 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 using System.Reflection;
+using UIBinding;
 
-namespace UIBinding
+namespace UIBindingEditor
 {
     public static class BindingInjectTool
     {

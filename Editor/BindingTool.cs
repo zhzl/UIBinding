@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
+using UIBinding;
 using UnityEditor;
 using UnityEngine;
 
-namespace UIBinding
+namespace UIBindingEditor
 {
     public static class BindingTool
     {

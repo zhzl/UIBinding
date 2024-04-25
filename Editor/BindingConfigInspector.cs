@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using UIBinding;
 using UnityEditor;
 using UnityEngine;
 
-namespace UIBinding
+namespace UIBindingEditor
 {
     [CustomEditor(typeof(BindingConfig))]
     public class BindingConfigInspector : Editor
