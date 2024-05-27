@@ -40,6 +40,7 @@ namespace UIBinding
         private IEnumerator DelayRefresh()
         {
             yield return null;
+            yield return null;
             Refresh(cellCount);
         }
 
