@@ -4,8 +4,6 @@ Unity UGUI 绑定方案。
 
 仅提供绑定方案，使用简单，扩展灵活。
 
-[示例工程地址](https://github.com/zhzl/UIBindingDemo)
-
 ## 安装方法
 
 1. 直接下载本项目放入工程。
@@ -99,3 +97,7 @@ public class TestView : UIView
 
     ......
 ```
+
+## 示例
+
+* 基本用法 [01.BasicUsage](./Examples/01.BasicUsage)
